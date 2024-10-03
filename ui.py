@@ -22,6 +22,24 @@ class Cell:
         if self.bot_wall:
             self.win.draw_line(Line(Point(x1, y2), Point(x2, y2)))
 
+    def draw_move(self, to_cell, undo=False):
+        x = self.x1 - self.x2
+        y = self.y1 - self.y2
+        from_x = self.x1 - x / 2
+        from_y = self.y1 - y / 2
+
+        x = to_cell.x1 - to_cell.x2
+        y = to_cell.y1 - to_cell.y2
+        to_x = to_cell.x1 - x / 2
+        to_y = to_cell.y1 - y / 2
+        
+        if undo:
+            color = "gray"
+        else:
+            color = "red"
+
+        self.win.draw_line(Line(Point(from_x, from_y), Point(to_x, to_y)), color)
+
 
 class Point:
     def __init__(self, x, y):

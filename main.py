@@ -14,6 +14,8 @@ def main():
     test_cell.draw(2,2, 42,42)
     test_cell2.draw(42,2, 82,42)
     test_cell3.draw(82,2, 122,42)
+    test_cell.draw_move(test_cell2)
+    test_cell2.draw_move(test_cell3)
     win.wait_for_close()
 
 main()
