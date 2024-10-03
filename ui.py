@@ -8,19 +8,31 @@ class Cell:
         self.right_wall = True
         self.top_wall = True
         self.bot_wall = True
+        self.visited = False
         self.win = win
 
     def draw(self, x1, y1, x2, y2):
         self.x1, self.y1 = x1, y1
         self.x2, self.y2 = x2, y2
         if self.left_wall:
-            self.win.draw_line(Line(Point(x1, y1), Point(x1, y2)))
+            self.win.draw_line(Line(Point(x1, y1), Point(x1, y2)), "white")
+        else:
+            self.win.draw_line(Line(Point(x1, y1), Point(x1, y2)), "black")
+
         if self.right_wall:
-            self.win.draw_line(Line(Point(x2, y1), Point(x2, y2)))
+            self.win.draw_line(Line(Point(x2, y1), Point(x2, y2)), "white")
+        else:
+            self.win.draw_line(Line(Point(x2, y1), Point(x2, y2)), "black")
+
         if self.top_wall:
-            self.win.draw_line(Line(Point(x1, y1), Point(x2, y1)))
+            self.win.draw_line(Line(Point(x1, y1), Point(x2, y1)), "white")
+        else:
+            self.win.draw_line(Line(Point(x1, y1), Point(x2, y1)), "black")
+
         if self.bot_wall:
-            self.win.draw_line(Line(Point(x1, y2), Point(x2, y2)))
+            self.win.draw_line(Line(Point(x1, y2), Point(x2, y2)), "white")
+        else:
+            self.win.draw_line(Line(Point(x1, y2), Point(x2, y2)), "black")
 
     def draw_move(self, to_cell, undo=False):
         x = self.x1 - self.x2
@@ -34,9 +46,9 @@ class Cell:
         to_y = to_cell.y1 - y / 2
         
         if undo:
-            color = "gray"
-        else:
             color = "red"
+        else:
+            color = "green"
 
         self.win.draw_line(Line(Point(from_x, from_y), Point(to_x, to_y)), color)
 
@@ -58,7 +70,7 @@ class Window:
     def __init__(self, width, height):
         self.__root = Tk()
         self.__root.title("Maze Solver")
-        self.canvas = Canvas(self.__root, bg="White", height=height, width=width)
+        self.canvas = Canvas(self.__root, bg="Black", height=height, width=width)
         self.canvas.pack(fill=BOTH, expand=1)
         self.running = False
         self.__root.protocol("WM_DELETE_WINDOW", self.close)
@@ -76,5 +88,5 @@ class Window:
     def close(self):
         self.running = False
 
-    def draw_line(self, line, color="black"):
+    def draw_line(self, line, color="White"):
         line.draw(self.canvas, color)

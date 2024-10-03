@@ -1,8 +1,6 @@
 from ui import *
 from maze import Maze
 
-width = 800
-height = 600
 
 def main():
     width = 1920
@@ -15,6 +13,10 @@ def main():
 
     win = Window(width, height)
     maze = Maze(buffer, buffer, num_rows, num_cols, cell_size, cell_size, win)
+    if maze.solve():
+        print("Maze Solved")
+    else:
+        print("Maze Failed")
     win.wait_for_close()
 
 main()
