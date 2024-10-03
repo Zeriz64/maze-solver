@@ -1,7 +1,7 @@
 from tkinter import Tk, BOTH, Canvas
 
 class Cell:
-    def __init__(self, win):
+    def __init__(self, win=None):
         self.x1, self.y1 = 0, 0
         self.x2, self.y2 = 0, 0
         self.left_wall = True
@@ -56,11 +56,10 @@ class Line:
 
 class Window:
     def __init__(self, width, height):
-        self.width = width
-        self.height = height
         self.__root = Tk()
-        self.canvas = Canvas()
-        self.canvas.pack()
+        self.__root.title("Maze Solver")
+        self.canvas = Canvas(self.__root, bg="White", height=height, width=width)
+        self.canvas.pack(fill=BOTH, expand=1)
         self.running = False
         self.__root.protocol("WM_DELETE_WINDOW", self.close)
 
@@ -72,6 +71,7 @@ class Window:
         self.running = True
         while self.running == True:
             self.redraw()
+        print("Window Closed")
 
     def close(self):
         self.running = False
